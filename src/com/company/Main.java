@@ -50,8 +50,35 @@ public class Main {
         }
     }
 
-    public static void printPerson(Object person) {
-        System.out.println(person["nr"] + person.navn + person.tal);
+    public static void printPerson(Person person) {
+        System.out.println(person.getNr() + " " + person.getNavn() + " " + person.getTal());
+    }
+
+    public static void udskrivPersoner(Person[] array, int antal) {
+        for (int i = 0; i < antal; i++) {
+            printPerson(array[i]);
+        }
+    }
+
+    public static void udskrivTilFil(Person[] array, int antal) {
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("Personer.ser"));
+            for (int i = 0; i < antal; i++) {
+                output.writeObject(array[i]);
+
+            }
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void IndFraFil() {
+        try {
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream("Personer.ser"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -69,9 +96,14 @@ public class Main {
         Person Peter = new Person(count[1], name[1], numbers[1]);
         Person Christian = new Person(count[2], name[2], numbers[2]);
 
-        printPerson(Pernille);
+//        printPerson(Pernille);
+//        printPerson(Peter);
+//        printPerson(Christian);
 
-        System.out.println(Pernille.getNr() + Pernille.getNavn() + Pernille.getTal());
+        Person[] array = {Pernille, Peter, Christian};
+
+        udskrivPersoner(array, array.length);
+        udskrivTilFil(array, array.length);
 
     }
 }
