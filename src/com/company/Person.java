@@ -1,6 +1,8 @@
 package com.company;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private int nr;
     private String navn;
     private float tal;

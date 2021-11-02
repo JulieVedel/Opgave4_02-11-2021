@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -60,13 +61,10 @@ public class Main {
         }
     }
 
-    public static void udskrivTilFil(Person[] array, int antal) {
+    public static void udskrivTilFil(Person[] array) {
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("Personer.ser"));
-            for (int i = 0; i < antal; i++) {
-                output.writeObject(array[1]);
-
-            }
+            output.writeObject(array);
             output.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,17 +72,17 @@ public class Main {
     }
 
     public static Person[] indFraFil() {
-        Person[] array1 = new Person[3];
+        Person[] people = new Person[3];
         try {
             ObjectInputStream input = new ObjectInputStream(new FileInputStream("Personer.ser"));
-            String a = (String) input.readObject();
+            people = (Person[]) input.readObject();
 
             input.close();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return array1;
+        return people;
     }
 
     public static void main(String[] args) throws IOException {
@@ -108,9 +106,9 @@ public class Main {
 
         Person[] array = {Pernille, Peter, Christian};
 
-        udskrivPersoner(array, array.length);
-        udskrivTilFil(array, array.length);
-//        Person[] array1 = indFraFil();
-//        udskrivPersoner(array1, array1.length);
+//        udskrivPersoner(array, array.length);
+        udskrivTilFil(array);
+        Person[] array1 = indFraFil();
+        udskrivPersoner(array1, array1.length);
     }
 }
