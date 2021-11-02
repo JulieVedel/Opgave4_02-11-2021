@@ -64,7 +64,7 @@ public class Main {
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("Personer.ser"));
             for (int i = 0; i < antal; i++) {
-                output.writeObject(array[i]);
+                output.writeObject(array[1]);
 
             }
             output.close();
@@ -73,12 +73,18 @@ public class Main {
         }
     }
 
-    public static void IndFraFil() {
+    public static Person[] indFraFil() {
+        Person[] array1 = new Person[3];
         try {
             ObjectInputStream input = new ObjectInputStream(new FileInputStream("Personer.ser"));
-        } catch (IOException e) {
+            String a = (String) input.readObject();
+
+            input.close();
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return array1;
     }
 
     public static void main(String[] args) throws IOException {
@@ -104,6 +110,7 @@ public class Main {
 
         udskrivPersoner(array, array.length);
         udskrivTilFil(array, array.length);
-
+//        Person[] array1 = indFraFil();
+//        udskrivPersoner(array1, array1.length);
     }
 }
