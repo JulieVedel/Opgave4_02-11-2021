@@ -50,6 +50,10 @@ public class Main {
         }
     }
 
+    public static void printPerson(Object person) {
+        System.out.println(person["nr"] + person.navn + person.tal);
+    }
+
     public static void main(String[] args) throws IOException {
         int amount = 3;
         int[] count = new int[amount];
@@ -57,10 +61,17 @@ public class Main {
         float[] numbers = new float[amount];
 
         dataToArray(count, name, numbers);
-        printArrays(count, name, numbers);
+//        printArrays(count, name, numbers);
+//        writeToDatafile(count, name, numbers, amount);
+//        readDatafile();
 
-        writeToDatafile(count, name, numbers, amount);
-        readDatafile();
+        Person Pernille = new Person(count[0], name[0], numbers[0]);
+        Person Peter = new Person(count[1], name[1], numbers[1]);
+        Person Christian = new Person(count[2], name[2], numbers[2]);
+
+        printPerson(Pernille);
+
+        System.out.println(Pernille.getNr() + Pernille.getNavn() + Pernille.getTal());
 
     }
 }
